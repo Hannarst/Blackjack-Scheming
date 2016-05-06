@@ -105,21 +105,26 @@
 ;;;
 ;; [add description and test -cases]
 
+
 (define (get-stats strategy repeat-count data-points)
-  (if (= data-points 0)
-
-  )
-  (repeat-game repeat-count)
-)
-(define (add-point strategy repeat-count stats)
-  (if (= data-points 0)
-
-  )
+    (if (= data-points 0)
+        '()
+        (append (point-average strategy (- data-points 1)) (repeat-game repeat-count)) 
+    )
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;   Question 8.   interactive
 ;; [add description and user insctructions]
+
+(define (hit?)
+    (lambda (hand up-card)
+        (display "Your hand evaluates to: " hand)
+        (display "The dealer's card is: " up-card)
+        (hit-me?)    
+    )    
+)
+
 
 ; function to get the input returns #t if the user types y otherwise #f
 (define (hit-me?)
