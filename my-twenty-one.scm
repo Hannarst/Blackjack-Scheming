@@ -21,15 +21,12 @@
  (or (memq '(A d) hand) (memq '(A s) hand) (memq '(A h) hand) (memq '(A c) hand))
 )
 
-;; Dummy Version of best-hand
 (define (best-hand hand)
-  (if ace-present(hand)
-    (if (> (+ (min-val hand) 10) 21)
-      (min-val hand)
-      (+ (min-val hand) 10)
-    )
-    (min-val hand)
-    ))
+  (if (and ace-present(hand) (<= (+ (min-val hand) 10) 21)) ;;; only 1 ace relevant: two aces counting as 11 busts
+      (+ (min-val hand) 10) ;;; else it is closer to 21 so count as 11
+      (min-val hand) ;;; read as 1 if 11 busts
+   )
+ )
 
 ;; Best Value of Hand
 ;; [add description and test -cases]
