@@ -53,7 +53,7 @@
   (lambda (strategy n)
     (if (= n 0)
       0
-      (+ blackjack(strategy) repeat-game(- n 1))
+      (+ (blackjack strategy) (repeat-game (- n 1)))
     )
   )
 )
@@ -65,6 +65,25 @@
 ;; [add description and test -cases]
 
 
+
+
+
+(define (clever my-hand up-card)
+
+  (if (<= (best-hand my-hand) 11)
+      #t
+      (if (>= (best-hand my-hand) 17)
+        #f
+        (if (= (best-hand my-hand) 12)
+          (not (or (= (min-val up-card) 4) (= (min-val up-card) 5) (= (min-val up-card) 6)))
+          (if (and (>= (best-hand my-hand) 13) (<= (best-hand my-hand) 16))
+            (>= (best-hand (list up-card)) 7)
+            ;;;error
+          )
+        )
+      )
+    )
+  )
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
