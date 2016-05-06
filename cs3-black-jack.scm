@@ -3,7 +3,7 @@
 ;;;;                 April 2016                            ;;;;
 ;;;;                The skeleton                           ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  
+;;
 ;; This provides the basic code for the blackjack assignment
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -12,9 +12,9 @@
 
 ;; Random (taken from simply.scm)
 ;; If your version of Scheme has RANDOM, you should take this out.
-;; (It gives the same sequence of random numbers every time.) 
+;; (It gives the same sequence of random numbers every time.)
 
-(define random
+(define (random)
   (let ((*seed* 1) )
     (lambda (x)
       (let* ((hi (quotient *seed* 127773))
@@ -26,7 +26,7 @@
       (modulo *seed* x))))
 
 
-;; pack of playing cards is divided into four suits: 
+;; pack of playing cards is divided into four suits:
 ;; spades, hearts, diamonds, and clubs
 ;; the rank of a card is the value within a suit
 (define (suit s)  ;; Create a single suit 's' in order of rank
@@ -100,7 +100,7 @@
 ;;  Figure out what this does!
 ;;  The lines marked <comment out> can be removed without loss
 ;;  Note well: the list of a hand is backwards!
-;;             (i.e., last card is first) 
+;;             (i.e., last card is first)
 (define (black-jack strategy)
   (let ((the-deck (shuffled-pack)))
     (let ((player-hand (list (car the-deck) (cadr the-deck)))
@@ -113,28 +113,28 @@
       ;; (display "dealer-up-card: ") (display dealer-up-card) ;;;<comment out>
       ;; (newline)                                             ;;;<comment out>
 
-      (let ((outcome (play 
-		      strategy 
-		      player-hand 
-		      dealer-up-card 
+      (let ((outcome (play
+		      strategy
+		      player-hand
+		      dealer-up-card
 		      rest-of-deck)))
 	(display "Player outcome: ") (display (car outcome)) ;;;<comment out>
 	(newline)                                            ;;;<comment out>
 	(if (> (best-hand (car outcome)) 21)
 	    -1                                 ; Player bust
-	    (let ((dealer-hand (play-dealer 
-					    (list dealer-up-card) 
+	    (let ((dealer-hand (play-dealer
+					    (list dealer-up-card)
 					    (cdr outcome))))
 	      (display "dealer-hand: ")                      ;;;<comment out>
 	      (display dealer-hand)                          ;;;<comment out>
 	      (newline) (newline)                            ;;;<comment out>
 	      (cond ((> (best-hand dealer-hand) 21) 1)
 					; Dealer Bust, player wins
-		    ((< (best-hand (car outcome)) 
-			(best-hand dealer-hand)) -1) 
+		    ((< (best-hand (car outcome))
+			(best-hand dealer-hand)) -1)
 					; Dealer wins
-		    ((> (best-hand (car outcome)) 
-			(best-hand dealer-hand)) 1) 
+		    ((> (best-hand (car outcome))
+			(best-hand dealer-hand)) 1)
 					; Player wins
 		    (else 0))      ; Draw
 	      )
@@ -155,4 +155,3 @@
 ;#t
 (define (stop-at-17 customer-hand-so-far dealer-up-card)
 	(< (best-hand customer-hand-so-far) 17))
-

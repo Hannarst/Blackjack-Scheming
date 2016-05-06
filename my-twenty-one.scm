@@ -49,7 +49,14 @@
 ;;;  Question 3.  "repeat-game"
 ;; [add description and test -cases]
 
-
+(define (repeat-game)
+  (lambda (strategy n)
+    (if (= n 0)
+      0
+      (+ blackjack(strategy) repeat-game(- n 1))
+    )
+  )
+)
 
 
 
