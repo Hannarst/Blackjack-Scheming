@@ -49,12 +49,10 @@
 ;;;  Question 3.  "repeat-game"
 ;; [add description and test -cases]
 
-(define (repeat-game)
-  (lambda (strategy n)
-    (if (= n 0)
-      0
-      (+ (blackjack strategy) (repeat-game (- n 1)))
-    )
+(define (repeat-game n)
+  (if (= n 0)
+    0
+    (+ (blackjack strategy) (repeat-game (- n 1)))
   )
 )
 
@@ -107,7 +105,17 @@
 ;;;
 ;; [add description and test -cases]
 
+(define (get-stats strategy repeat-count data-points)
+  (if (= data-points 0)
 
+  )
+  (repeat-game repeat-count)
+)
+(define (add-point strategy repeat-count stats)
+  (if (= data-points 0)
+
+  )
+)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;   Question 8.   interactive
