@@ -91,6 +91,15 @@
 ;;;
 ;; [add description and test -cases]
 
+(define (average val1 val2 val3)
+  (or (and val1 (or val2 val3)) (and val2 (or val1 val3)) (and val3 (or val2 val1)))
+)
+
+(define (majority strategy1 strategy2 strategy3)
+  (lambda (hand up-card)
+    (average (strategy1 hand up-card) (strategy2 hand up-card) (strategy3 hand up-card))
+  )
+)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
