@@ -14,7 +14,7 @@
 ;; If your version of Scheme has RANDOM, you should take this out.
 ;; (It gives the same sequence of random numbers every time.)
 
-(define (random)
+(define random
   (let ((*seed* 1) )
     (lambda (x)
       (let* ((hi (quotient *seed* 127773))
