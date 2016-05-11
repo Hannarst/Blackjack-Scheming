@@ -13,6 +13,13 @@
 ;;;;  please do not submit the predefined code              ;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define (member? ele lst)
+  (cond ((null? lst) #f)
+        ((not (list? lst))
+         (equal? ele lst))
+        (else (or (member? ele (car lst))
+                  (member? ele (cdr lst))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;  Question 1.  Code for "best-hand"
 
@@ -21,11 +28,9 @@
 ;;Determine best hand to play of existing cards (expects a list of cards)
 ;; > (best-hand '((8 c) (A h)))
 ;; 19
+
 (define (best-hand hand)
-  (define (ace-present? hand)
-   (or (memq '(A d) hand) (memq '(A s) hand) (memq '(A h) hand) (memq '(A c) hand))
-  )
-  (if (and (ace-present? hand) (<= (+ (min-val hand) 10) 21)) ;;; only 1 ace relevant: two aces counting as 11 busts
+  (if (and (member? 'A hand) (<= (+ (min-val hand) 10) 21)) ;;; only 1 ace relevant: two aces counting as 11 busts
       (+ (min-val hand) 10) ;;; it is closer to 21 so count Ace as 11
       (min-val hand) ;;; read as 1 if 11 busts
    )

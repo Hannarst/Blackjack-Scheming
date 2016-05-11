@@ -1,0 +1,18 @@
+Q1
+> (best-hand '((8 c) (A h)))
+19
+> (best-hand '((8 c)))      
+8
+> (best-hand '())     
+0
+> (best-hand '((8 c) (8 c) (A h)))      
+17
+
+Q2
+
+> ((stop-at 17) '((7 s) (3 c)) '(5 d))
+#t
+> ((stop-at 0) '((7 s) (3 c)) '(5 d)) 
+#f
+
+
