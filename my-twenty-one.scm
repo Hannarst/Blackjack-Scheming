@@ -16,13 +16,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;  Question 1.  Code for "best-hand"
 
-;;; is ace in hand dshc
 
+;;; is ace in hand dshc
 ;;Determine best hand to play of existing cards (expects a list of cards)
 ;; > (best-hand '((8 c) (A h)))
 ;; 19
-;;
-
 (define (best-hand hand)
   (define (ace-present? hand)
    (or (memq '(A d) hand) (memq '(A s) hand) (memq '(A h) hand) (memq '(A c) hand))
@@ -39,21 +37,23 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;  Question 2.  "stop-at"
-;; [add description and test -cases]
 
-
+; takes an argument n that determines a strategy where a card is taken only if the best hand so far is less than n
 ;>  ((stop-at 17) '((7 s) (3 c)) '(5 d))
 ;#t
-(define (stop-at stop-num)
+(define (stop-at n)
 	(lambda (customer-hand-so-far dealer-up-card)
-    (< (best-hand customer-hand-so-far) stop-num)
+    (< (best-hand customer-hand-so-far) n)
     ))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;  Question 3.  "repeat-game"
-;; [add description and test -cases]
 
+;takes a strategy and a number as arguments such that:
+;(repeat‐game strategy n)
+;plays n games with the strategy specified and returns the number of games won minus the
+;number of games lost (draws don’t count either way).
 ;> (repeat-game stop-at-17 10)
 ; -5
 (define (repeat-game strategy n)
@@ -67,15 +67,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;   Question 4.    clever
-;; [add description and test -cases]
 
-
+;takes into account both the player’s current total and what the dealer’s up card is
 ; (clever '((7 s) (3 c)) '(5 d))
 ;> #t
-
-;;; code isn't optimal, but readable
 (define (clever my-hand up-card)
 ; direct translation of clever requirements into scheme
+; code isn't optimal, but readable
   (cond ((<= (best-hand my-hand) 11) #t)
       ((>= (best-hand my-hand) 17) #f)
       ((= (best-hand my-hand) 12)
@@ -89,11 +87,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;      Question 5.                Majority
 ;;;
-;; [add description and test -cases]
 
+; takes three strategies as arguments and produces a strategy as a
+;result. This resulting strategy decides whether or not to “hit” by checking the three argument
+;strategies, and going with the majority
 ;((majority stop-at-17 stupid clever) '((7 s) (3 c)) '(5 d))
 ;>#t
-
 (define (majority strategy1 strategy2 strategy3)
   (define (average val1 val2 val3)
     (or (and val1 (or val2 val3)) (and val2 (or val1 val3)) (and val3 (or val2 val1)))
@@ -109,9 +108,11 @@
 ;;;
 ;; [add description and test -cases]
 
+;which gathers
+;the statistics of several repeats of the game, in a list. Every data point represents a large number of
+;repeats of the game and there will be several such data points in the output list.
 ;(get-stats stupid 10 5)
 ;>(-6 -10 -8 -6 -8)
-
 (define (get-stats strategy repeat-count data-points)
     (if (= data-points 0)
         '()
@@ -121,14 +122,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;   Question 8.   interactive
-;; [add description and user insctructions]
 
-;>(hit? '((7 s) (3 c)) '(5 d))
-;Your hand is: 7s3c
-;The dealer's card is: 5d
-;y
-;#t
-
+;returns true if the user types 'y'
+;false for anything else
 (define (hit? hand up-card)
       (display "Your hand is: ") (display hand)
       (newline)
