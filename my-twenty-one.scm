@@ -135,6 +135,8 @@
       (newline)
       (display "The dealer's card is: ") (display up-card)
       (newline)
+      (display "Hit? Enter 'y' for hit and anything else for stand: ")
+      (newline)
       (hit-me?)
 )
 
