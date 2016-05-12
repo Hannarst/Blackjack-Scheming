@@ -1,18 +1,461 @@
-Q1
-> (best-hand '((8 c) (A h)))
+********************************Question 1*******************************
+> (best-hand '((8 c) (A h)))          ; test for one ace: not bust
 19
-> (best-hand '((8 c)))      
+> (best-hand '((8 c)))                ; no ace
 8
-> (best-hand '())     
+> (best-hand '())                     ; null
 0
-> (best-hand '((8 c) (8 c) (A h)))      
+> (best-hand '((8 c) (8 c) (A h)))    ; bust if ace 11
 17
 
-Q2
+********************************Question 2*******************************
 
-> ((stop-at 17) '((7 s) (3 c)) '(5 d))
+> ((stop-at 17) '((7 s) (3 c)) '(5 d))  ; hits when under 17?
 #t
-> ((stop-at 0) '((7 s) (3 c)) '(5 d)) 
+> ((stop-at 17) '((7 s) (Q c)) '(5 d))  ; hits when 17?
+#f
+> ((stop-at 17) '((7 s) (3 c)) '(5 d))  ; hits when over 17?
 #f
 
+
+********************************Question 3*******************************
+
+> (repeat-game stupid 10)
+
+
+player-hand: Qs6d
+Player outcome: 7dQs6d
+
+
+player-hand: 5s2s
+Player outcome: 3s6s6h5s2s
+
+
+player-hand: 6s9c
+Player outcome: 6s9c
+dealer-hand: 6dJs3d
+
+
+
+player-hand: 8d9h
+Player outcome: 8d9h
+dealer-hand: Kd4s3h
+
+
+
+player-hand: 3c4h
+Player outcome: 10dJc3c4h
+
+
+player-hand: KcAh
+Player outcome: KcAh
+dealer-hand: 10c8dAc4s
+
+
+
+player-hand: 10s5d
+Player outcome: 10s5d
+dealer-hand: 6dKs2s
+
+
+
+player-hand: 6dAd
+Player outcome: 10s6s6dAd
+
+
+player-hand: 7s3c
+Player outcome: 7s3c
+dealer-hand: 6h6d5d
+
+
+
+player-hand: 6h7c
+Player outcome: 6h7c
+dealer-hand: Js3sKc2d
+
+-5
+
+********************************Question 4*******************************
+; branch testing
+                                      ; <player value, up-card>
+> (clever '((7 s) (3 c)) '(5 d))      ; 10,5
+#t
+> (clever '((7 s) (4 c)) '(5 d))      ; 11,5                    
+#t
+> (clever '((7 s) (J c)) '(5 d))      ; 17, 5
+#f
+> (clever '((A s) (J c)) '(5 d))      ; 21, 5
+#f
+> (clever '((2 s) (J c)) '(4 d))      ; 12, 4
+#f
+> (clever '((2 s) (J c)) '(6 d))      ; 12, 6
+#f
+> (clever '((2 s) (J c)) '(7 d))      ; 12, 7
+#t
+> (clever '((2 s) (J c)) '(3 d))      ; 12, 3
+#t
+> (clever '((3 s) (J c)) '(2 d))      ; 13, 2
+#f
+> (clever '((3 s) (J c)) '(A d))      ; 13, 11
+#t
+> (clever '((4 s) (J c)) '(A d))      ; 14, 11
+#t
+> (clever '((5 s) (A c)) '(A d))      ; 15, 11
+#t
+> (clever '((5 s) (A c)) '(J d))      ; 16, 10
+#t
+
+********************************Question 5*******************************
+; test all possible combinations of true false values
+                                                                    ; <stop-at-17-result, stupid-result, clever-result>
+
+> ((majority stop-at-17 stupid clever) '((7 s) (3 c)) '(5 d))       ; t,f,t
+#t
+> ((majority stop-at-17 stupid clever) '((7 s) (3 c)) '(6 d))       ; t,t,t
+#t
+> ((majority stop-at-17 stupid clever) '((Q s) (A c)) '(6 d))       ; f,t,f
+#f
+> ((majority stop-at-17 stupid clever) '((Q s) (A c)) '(4 d))       ; f,f,f
+#f
+
+********************************Question 6*******************************
+
+> (get-stats stupid 10 5)
+
+
+player-hand: 7h9d
+Player outcome: 7h9d
+dealer-hand: JdKc2d
+
+
+
+player-hand: Jc9c
+Player outcome: 5dJc9c
+
+
+player-hand: 9c5c
+Player outcome: Ks3c9c5c
+
+
+player-hand: Js3d
+Player outcome: 8hAcJs3d
+
+
+player-hand: 8hAs
+Player outcome: Jh3d7c8hAs
+
+
+player-hand: 2c7c
+Player outcome: 2c7c
+dealer-hand: Jc10d2s
+
+
+
+player-hand: 9s2d
+Player outcome: 8h3c9s2d
+
+
+player-hand: 3c7h
+Player outcome: 3c7h
+dealer-hand: 9hAd
+
+
+
+player-hand: 7h8s
+Player outcome: 7s7h8s
+
+
+player-hand: 2d6d
+Player outcome: Jh3c2s5s2d6d
+
+
+player-hand: As2d
+Player outcome: 10c3dQd5sAs2d
+
+
+player-hand: 10h5h
+Player outcome: 10h5h
+dealer-hand: KsAs
+
+
+
+player-hand: 2hJh
+Player outcome: 10c2hJh
+
+
+player-hand: 10d6d
+Player outcome: 4d3h10d6d
+
+
+player-hand: Ad5s
+Player outcome: 10c7sAd5s
+
+
+player-hand: Kh8d
+Player outcome: 7hKh8d
+
+
+player-hand: Kd5c
+Player outcome: QdKd5c
+
+
+player-hand: QhQd
+Player outcome: QhQd
+dealer-hand: 7d2hJsAh2d
+
+
+
+player-hand: 3d7c
+Player outcome: 3d7c
+dealer-hand: 9h2sJh2c
+
+
+
+player-hand: Ad5d
+Player outcome: Ad5d
+dealer-hand: 7c10c4h
+
+
+
+player-hand: 5s7c
+Player outcome: 5s7c
+dealer-hand: 10c9s3h
+
+
+
+player-hand: Ks7d
+Player outcome: 8c3hKs7d
+
+
+player-hand: 2s8d
+Player outcome: 2s8d
+dealer-hand: Js3c7s4c
+
+
+
+player-hand: Qs2d
+Player outcome: Qs2d
+dealer-hand: 5s7c4cAh
+
+
+
+player-hand: 3cAs
+Player outcome: 6s2dJh3cAs
+
+
+player-hand: 5c4s
+Player outcome: 9h10c5c4s
+
+
+player-hand: 8s4c
+Player outcome: 8s4c
+dealer-hand: 10dAh
+
+
+
+player-hand: 4d6d
+Player outcome: 4d6d
+dealer-hand: 10c10d3h3s
+
+
+
+player-hand: KhJs
+Player outcome: 3hKhJs
+
+
+player-hand: 4s10s
+Player outcome: 4s10s
+dealer-hand: Qs10h5s
+
+
+
+player-hand: 4dAh
+Player outcome: 10h2s7h5d4dAh
+
+
+player-hand: 9dQh
+Player outcome: 9dQh
+dealer-hand: KhKc4h
+
+
+
+player-hand: 8d4s
+Player outcome: 6s4h8d4s
+
+
+player-hand: 9d2s
+Player outcome: 9d2s
+dealer-hand: 8hAd
+
+
+
+player-hand: 4s5s
+Player outcome: 8d9d4s5s
+
+
+player-hand: 8sQd
+Player outcome: Jd8sQd
+
+
+player-hand: Jh4c
+Player outcome: 9cJh4c
+
+
+player-hand: Ah6c
+Player outcome: Ah6c
+dealer-hand: Ad2h2s5h
+
+
+
+player-hand: 8h4s
+Player outcome: Kh8h4s
+
+
+player-hand: KsAs
+Player outcome: 9d7dKsAs
+
+
+player-hand: QhJs
+Player outcome: 5hAsQhJs
+
+
+player-hand: 5hQs
+Player outcome: 5hQs
+dealer-hand: 7cAd8h2s4h
+
+
+
+player-hand: 6s3c
+Player outcome: 6s3c
+dealer-hand: 2s9s2d5c
+
+
+
+player-hand: Qs9s
+Player outcome: 10sAcQs9s
+
+
+player-hand: Jd4c
+Player outcome: 8cJd4c
+
+
+player-hand: As9c
+Player outcome: Qc6cAs9c
+
+
+player-hand: 7s7h
+Player outcome: 9h7s7h
+
+
+player-hand: 9c5h
+Player outcome: 9d9c5h
+
+
+player-hand: 4hQc
+Player outcome: 4hQc
+dealer-hand: JcAc
+
+
+
+player-hand: 10sJd
+Player outcome: 10sJd
+dealer-hand: KdAs
+
+(-6 -6 -2 -8 -8)
+
+********************************Question 8*******************************
+; roughly the stop-at-17 algorithm -- depends on how risky I'm feeling
+
+> (black-jack hit?) 
+
+
+player-hand: Qs6d
+Your hand is: Qs6d
+The dealer's card is: 8s
+Hit? Enter 'y' for hit and anything else for stand: 
+y
+Player outcome: 7dQs6d
+-1
+> (black-jack hit?)
+
+
+player-hand: 5s2s
+Your hand is: 5s2s
+The dealer's card is: Jd
+Hit? Enter 'y' for hit and anything else for stand: 
+y
+Your hand is: 6h5s2s
+The dealer's card is: Jd
+Hit? Enter 'y' for hit and anything else for stand: 
+y
+Your hand is: 6s6h5s2s
+The dealer's card is: Jd
+Hit? Enter 'y' for hit and anything else for stand: 
+n
+Player outcome: 6s6h5s2s
+dealer-hand: 9d3sJd
+
+1
+> (black-jack hit?)
+
+
+player-hand: 6s9c
+Your hand is: 6s9c
+The dealer's card is: 3d
+Hit? Enter 'y' for hit and anything else for stand: 
+y
+Player outcome: Js6s9c
+-1
+> (black-jack hit?)
+
+
+player-hand: 8d9h
+Your hand is: 8d9h
+The dealer's card is: 3h
+Hit? Enter 'y' for hit and anything else for stand: 
+y
+Your hand is: 4s8d9h
+The dealer's card is: 3h
+Hit? Enter 'y' for hit and anything else for stand: 
+n
+Player outcome: 4s8d9h
+dealer-hand: JhKd3h
+
+1
+> (black-jack hit?)
+
+
+player-hand: 3c4h
+Your hand is: 3c4h
+The dealer's card is: Ks
+Hit? Enter 'y' for hit and anything else for stand: 
+y
+Your hand is: Jc3c4h
+The dealer's card is: Ks
+Hit? Enter 'y' for hit and anything else for stand: 
+y
+Player outcome: 10dJc3c4h
+-1
+> (black-jack hit?)
+
+
+player-hand: KcAh
+Your hand is: KcAh
+The dealer's card is: 4s
+Hit? Enter 'y' for hit and anything else for stand: 
+n
+Player outcome: KcAh
+dealer-hand: 10c8dAc4s
+
+1
+> (black-jack hit?)
+
+
+player-hand: 10s5d
+Your hand is: 10s5d
+The dealer's card is: 2s
+Hit? Enter 'y' for hit and anything else for stand: 
+y
+Player outcome: Ks10s5d
+-1
 
